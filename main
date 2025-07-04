@@ -1,0 +1,19 @@
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+df=pd.read_csv("/kaggle/input/smoker-status-prediction/train_dataset.csv")
+df.head()
+df.nunique()
+df.isnull().sum()
+df.describe()
+df.corr()
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+percentages = df['smoking'].value_counts(normalize=True) * 100
+ax = sns.barplot(x=percentages.index, y=percentages.values, palette="Set1")
+ax.set_xticklabels(['Non-Smokers (0)', 'Smokers (1)'])
+
+df.groupby('age')['smoking'].mean().plot(kind='bar')
+plt.ylabel("Average Age")
+plt.title("Average Age of Smokers vs Non-Smokers")
+plt.show()
